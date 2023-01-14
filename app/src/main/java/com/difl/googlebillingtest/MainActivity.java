@@ -37,6 +37,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     BillingClient billingClient;
+    int coins;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +123,8 @@ public class MainActivity extends AppCompatActivity {
                                             @Override
                                             public void onAcknowledgePurchaseResponse(@NonNull BillingResult billingResult) {
                                                 if(billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK){
+                                                    TextView ballance = findViewById(R.id.ballance);
+                                                    ballance.setText("Coins: " + String.valueOf(coins + 200));
                                                     Toast.makeText(MainActivity.this, "PURCHASE COMPLETED!", Toast.LENGTH_LONG).show();
                                                 }
                                             }
@@ -145,8 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void getProductDetails(){
         List<String> productsIds = new ArrayList<>();
-        productsIds.add("test_billing");
-        productsIds.add("test_billing_2");
+        productsIds.add("200_coins");
 
         SkuDetailsParams getProductDetailsQuery = SkuDetailsParams.newBuilder()
                 .setSkusList(productsIds)
